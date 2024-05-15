@@ -75,11 +75,11 @@ class I2S(BaseSO3Predictor):
         self.lmax = lmax
         irreps_in = so3_utils.s2_irreps(lmax)
         self.o3_conv = o3.Linear(irreps_in, so3_utils.so3_irreps(lmax),
-                                 f_in=sphere_fdim, f_out=1, internal_weights=False)
+                                 f_in=sphere_fdim, f_out=f_hidden, internal_weights=False)
 
         self.so3_activation = e3nn.nn.SO3Activation(lmax, lmax, torch.relu, 10)
         so3_grid = so3_utils.so3_near_identity_grid()
-        self.so3_conv = nn.Sequential(SO3Convolution(f_hidden, 1, lmax, so3_grid))
+        self.so3_conv = SO3Convolution(f_hidden, 1, lmax, so3_grid)
 
         # output rotations for training and evaluation
         self.train_grid_rec_level = train_grid_rec_level
@@ -117,9 +117,9 @@ class I2S(BaseSO3Predictor):
         weight, _ = self.feature_sphere()
         x = self.o3_conv(x, weight=weight)
 
-        # x = self.so3_activation(x)
-        #
-        # x = self.so3_conv(x)
+        x = self.so3_activation(x)
+
+        x = self.so3_conv(x)
 
         return x
 
