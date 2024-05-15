@@ -117,6 +117,8 @@ def evaluate_error(args, model, test_loader):
 def create_model(args):
     model = I2S(num_classes=args.num_classes,
                 encoder=args.encoder,
+                projection_mode='spatialS2',
+                feature_sphere_mode='spatialS2',
                 sphere_fdim=args.sphere_fdim,
                 lmax=args.lmax,
                 train_grid_rec_level=args.train_grid_rec_level,
