@@ -79,7 +79,7 @@ class I2S(BaseSO3Predictor):
 
         self.so3_activation = e3nn.nn.SO3Activation(lmax, lmax, torch.relu, 10)
         so3_grid = so3_utils.so3_near_identity_grid()
-        self.so3_conv = nn.Sequential(SO3Convolution(f_hidden, 1, lmax, so3_grid),
+        self.so3_conv = nn.Sequential(SO3Convolution(f_hidden, f_hidden, lmax, so3_grid),
                                       SO3Convolution(f_hidden, 1, lmax, so3_grid))
 
         # output rotations for training and evaluation
