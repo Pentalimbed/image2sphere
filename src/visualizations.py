@@ -97,7 +97,6 @@ def plot_so3_distribution(probs: torch.Tensor,
     plt.close(fig)
     return img
 
-
 def plot_predictions(images, probs, rots, gt_rots=None, num=None, path=None):
     fig = plt.figure(figsize=(4.8, np.ceil(num/2)), dpi=300)
     gs = GridSpec(int(np.ceil(num/2)), 4, width_ratios=[1,3,1,3], wspace=0, left=0, top=1, bottom=0, right=1)
